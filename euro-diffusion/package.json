@@ -1,0 +1,19 @@
+{
+  "name": "package",
+  "version": "0.1.0",
+  "description": "euro diffusion task",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "-"
+  },
+  "repository": {
+    "type": "git",
+    "url": "-"
+  },
+  "keywords": [
+    "-"
+  ],
+  "author": "Marianna Snitko",
+  "license": "UNLICENSED"
+}
