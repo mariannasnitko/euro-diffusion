@@ -5,13 +5,15 @@ export default class Validation {
     const { xl, yl, xh, yh } = coords;
 
     const isCorrectBounds = (coord) => {
-      if (!Number.isInteger(coord)) return false;
+      if (typeof coord !== "number" || isNaN(coord)) return false;
       return (
         coord >= countryConstants.MIN_COORD &&
         coord <= countryConstants.MAX_COORD
       );
     };
+
     const isCorrectLowHighRange = (coord_l, coord_h) => coord_l <= coord_h;
+
     return [
       [xl, yl, xh, yh].every((coord) => isCorrectBounds(coord)),
       isCorrectLowHighRange(xl, xh),

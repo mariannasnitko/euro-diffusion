@@ -15,5 +15,8 @@
     "-"
   ],
   "author": "Marianna Snitko",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "dependencies": {
+    "mathjs": "^11.8.0"
+  }
 }

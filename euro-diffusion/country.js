@@ -23,7 +23,7 @@ export default class Country {
   static parseCountryString(countryString) {
     // Parse the country string and create a new Country object
     const [name, ...coords] = countryString.split(" ");
-    const [xl, yl, xh, yh] = coords.map((coord) => parseInt(coord));
+    const [xl, yl, xh, yh] = coords.map((coord) => parseInt(Math.abs(coord)));
     return new Country(name, { xl, yl, xh, yh });
   }
 }
