@@ -6,29 +6,32 @@ export default class Validation {
 
     const isCorrectBounds = (coord) => {
       if (typeof coord !== "number" || isNaN(coord)) return false;
-      return (
-        coord >= countryConstants.MIN_COORD &&
-        coord <= countryConstants.MAX_COORD
-      );
+      if (coord < countryConstants.MIN_COORD || coord > countryConstants.MAX_COORD) return false;
+      return true;
     };
 
-    const isCorrectLowHighRange = (coord_l, coord_h) => coord_l <= coord_h;
+    const isValidRange = (coord_l, coord_h) => coord_l <= coord_h;
 
-    return [
-      [xl, yl, xh, yh].every((coord) => isCorrectBounds(coord)),
-      isCorrectLowHighRange(xl, xh),
-      isCorrectLowHighRange(yl, yh),
-    ].every((result) => result);
+    return (
+      isCorrectBounds(xl) &&
+      isCorrectBounds(yl) &&
+      isCorrectBounds(xh) &&
+      isCorrectBounds(yh) &&
+      isValidRange(xl, xh) &&
+      isValidRange(yl, yh)
+    );    
   }
 
+  static isNameValid(name) {
+    return name.length <= countryConstants.NAME_MAX_LENGTH;
+  }
+  
   static validateCountryData(countryName, coords) {
     if (!Validation.areCoordsValid(coords)) {
       throw new Error(`Invalid country coordinates: ${countryName}`);
     }
-    if (countryName.length > countryConstants.NAME_MAX_LENGTH) {
-      throw new Error(
-        `Name must contain less than ${countryConstants.NAME_MAX_LENGTH} symbols`
-      );
+    if (!Validation.isNameValid(countryName)) {
+      throw new Error(`Name must contain less than ${countryConstants.NAME_MAX_LENGTH} symbols`);
     }
   }
 }
