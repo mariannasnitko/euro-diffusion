@@ -60,39 +60,32 @@ export default class CountryMap {
   }
 
   addNeighborsToCities() {
-    // Add neighbor relationships to cities
     for (let x = this.minX; x <= this.maxX; x += 1) {
       for (let y = this.minY; y <= this.maxY; y += 1) {
         const city = this.countriesGrid.get({ x, y });
         if (!city) {
           continue;
         }
-
+  
         const neighbors = [];
-        const addNeighbor = (x, y) => {
-          const neighborCity = this.countriesGrid.get({ x, y });
+        const coordinates = [
+          [x + 1, y],
+          [x - 1, y],
+          [x, y + 1],
+          [x, y - 1]
+        ];
+  
+        for (const [nx, ny] of coordinates) {
+          const neighborCity = this.countriesGrid.get({ x: nx, y: ny });
           if (neighborCity) {
             neighbors.push(neighborCity);
           }
-        };
-
-        if (x < this.maxX) {
-          addNeighbor(x + 1, y);
         }
-        if (x > this.minY) {
-          addNeighbor(x - 1, y);
-        }
-        if (y < this.maxY) {
-          addNeighbor(x, y + 1);
-        }
-        if (y > this.minY) {
-          addNeighbor(x, y - 1);
-        }
-
+  
         if (this.countries.length > 1 && !neighbors.length) {
           throw new Error(`City in ${city.countryName} has no neighbors`);
         }
-
+  
         city.neighbors = neighbors;
       }
     }
