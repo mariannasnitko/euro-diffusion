@@ -96,11 +96,16 @@ export default class CountryMap {
     let currentDay = 0;
 
     do {
+      let isAnyCityUpdated = false;
+    
       this.countries.forEach((country) => {
         country.cities.forEach((city) => {
+          if (city.updateCoinBalance()) {
+            isAnyCityUpdated = true;
+          }
           city.shareCoins();
         });
-
+    
         // Check if a country is completed and record the completion day
         if (country.isCompleted()) {
           if (!result.has(country.name)) {
@@ -108,15 +113,13 @@ export default class CountryMap {
           }
         }
       });
-
-      this.countries.forEach((country) => {
-        // Update coin balances for cities within each country
-        country.cities.forEach((city) => {
-          city.updateCoinBalance();
-        });
-      });
+    
       currentDay += 1;
-    } while (!this.isCompleted());
+    
+      if (!isAnyCityUpdated) {
+        break;
+      }
+    } while (true);    
 
     // If a country is not completed by the end, record the last completion day
     this.countries.forEach((country) => {
