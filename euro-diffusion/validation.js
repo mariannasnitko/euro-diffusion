@@ -5,9 +5,7 @@ export default class Validation {
     const { xl, yl, xh, yh } = coords;
 
     const isCorrectBounds = (coord) => {
-      if (typeof coord !== "number" || isNaN(coord)) return false;
-      if (coord < countryConstants.MIN_COORD || coord > countryConstants.MAX_COORD) return false;
-      return true;
+      return typeof coord === "number" && !isNaN(coord) && coord >= countryConstants.MIN_COORD && coord <= countryConstants.MAX_COORD;
     };
 
     const isValidRange = (coord_l, coord_h) => coord_l <= coord_h;

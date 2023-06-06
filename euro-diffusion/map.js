@@ -10,13 +10,11 @@ class MapDict {
   }
 
   set(coords, value) {
-    const key = this.key(coords);
-    this.map.set(key, value);
+    this.map.set(this.key(coords), value);
   }
 
   get(coords) {
-    const key = this.key(coords);
-    return this.map.get(key);
+    return this.map.get(this.key(coords));
   }
 }
 
